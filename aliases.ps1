@@ -6,9 +6,9 @@
 function c { cls }
 
 #-- Easier Navigation: .., ..., ...., ....., and ~
-New-Alias -Name .. -Value up
-New-Alias -Name ... -Value up2
-New-Alias -Name .... -Value up3
+Set-Alias -Name .. -Value up
+Set-Alias -Name ... -Value up2
+Set-Alias -Name .... -Value up3
 function up { cd .. }
 function up2 { cd ..\.. }
 function up3 { cd ..\..\.. }
@@ -40,19 +40,8 @@ function gp { git push }
 function cpy { Set-Clipboard $args[0] }
 function pst { Get-Clipboard }
 
-#-- Define a function that simulates 'sudo'
-function sudo {
-    param (
-        [Parameter(Mandatory = $true, ValueFromRemainingArguments = $true)]
-        [string[]] $Command
-    )
-    
-    # Convert the command array to a single string
-    $cmd = $Command -join " "
 
-    # Start a new PowerShell process with elevated privileges to run the command
-    Start-Process powershell -ArgumentList "-Command", $cmd -Verb RunAs
-}
+#-- other shortcuts
 
-# Optional: Create an alias for the function
-New-Alias -Name sudo -Value sudo
+# where
+Set-Alias -Name ?? -Value gcm

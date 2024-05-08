@@ -22,8 +22,6 @@ function unzip ($file) {
 # Network Utilities
 function Get-PubIP { (Invoke-WebRequest http://ifconfig.me/ip).Content }
 
-
-
 function grep($regex, $dir) {
     if ( $dir ) {
         Get-ChildItem $dir | select-string $regex
@@ -44,4 +42,18 @@ function head {
 function tail {
   param($Path, $n = 10)
   Get-Content $Path -Tail $n
+}
+
+#-- Define a function that simulates 'sudo'
+function sudo {
+    param (
+        [Parameter(Mandatory = $true, ValueFromRemainingArguments = $true)]
+        [string[]] $Command
+    )
+    
+    # Convert the command array to a single string
+    $cmd = $Command -join " "
+
+    # Start a new PowerShell process with elevated privileges to run the command
+    Start-Process powershell -ArgumentList "-Command", $cmd -Verb RunAs
 }

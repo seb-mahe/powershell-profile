@@ -6,7 +6,10 @@ Write-Host "   /_/    \____/ |__/|__/_____/_/ |_|/____/_/ /_/_____/_____/_____/ 
 Write-Host "                                                                        "
 
 #-- Oh My Posh config
-oh-my-posh init pwsh --config 'oh-my-posh-terminal.json' | Invoke-Expression
+$profileDirectory = (Get-Item $PROFILE).DirectoryName
+$configPath = Join-Path $profileDirectory 'oh-my-posh-terminal.json'
+oh-my-posh init pwsh --config $configPath | Invoke-Expression
+
 
 #-- import Terminal Icons
 Import-Module -Name Terminal-Icons
